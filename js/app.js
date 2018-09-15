@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 let modal = document.getElementById("myModal");
 // Get the <span> element that closes the modal
 let span = document.getElementsByClassName("close")[0];
@@ -55,7 +56,7 @@ class Player {
     constructor() {
         this.sprite = 'images/char-boy.png';
         this.x = 200;
-        this.y = 350;
+        this.y = 400;
     }
 
     render() {
@@ -68,13 +69,19 @@ class Player {
               this.y -= 50;
               break;
             case "down":
-              this.y += 50;
+            if(this.y < 400) {
+                this.y += 50;
+            }
               break;
             case "left":
-              this.x -= 50;
+            if(this.x > 0) {
+                this.x -= 50;
+            }
               break;
             case "right":
-              this.x += 50;
+            if(this.x < 400) {
+                this.x += 50;
+            }
               break;
         }
     }
@@ -87,14 +94,13 @@ class Player {
         let distance = Math.sqrt(deltax * deltax + deltay * deltay);
         if (distance < 56) {
             this.reduceScores();
-            this.reset()
+            this.reset();
         }
       }
       // Did player win
       if (this.y < 10) {
         this.addScores();
-        //this.modalDisplayed();
-        this.reset()
+        this.reset();
       }
     }
 
@@ -106,7 +112,7 @@ class Player {
     //congratulations popup
     modalDisplayed() {
         modal.style.display = "block";
-        modalText.innerHTML = `<p><h2>Congratulations <h2>You Won!</p>`
+        modalText.innerHTML = `<p><h2>Congratulations <h2>You Won!</p>`;
         this.closed();
     }
 
